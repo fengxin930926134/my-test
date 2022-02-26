@@ -24,9 +24,22 @@
         <commons.lang3.version>3.5</commons.lang3.version>
         <lombok.version>1.16.18</lombok.version>
         <fastjson.version>1.2.70</fastjson.version>
+        <rocketmq.version>4.4.0</rocketmq.version>
     </properties>
 
     <dependencies>
+        <!--rocketmq这里的版本,要和部署在服务器上的版本号一致-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>${rocketmq.version}</version>
+        </dependency>
+        <!--webSocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <!--rabbitMQ-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
