@@ -4,83 +4,124 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.annotation.PostConstruct;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * websocket简单整合消息队列
+ * websocket原生实现
  */
-@Data
 @Slf4j
 // 把当前类标识成一个WebSocket的服务端，值是访问的URL地址
 @ServerEndpoint("/websocket")
 @Component
 public class WebSocketServer {
 
-    // 与某个客户端的连接会话，需要通过它来给客户端发送数据
-    private Session session;
-    private static CopyOnWriteArraySet<WebSocketServer> sessions = new CopyOnWriteArraySet<WebSocketServer>();
-
-//    /**
-//     * 监听队列，从rabbitMQ队列中把刚发送的消息取出来
-//     * @param message
-//     * @param channel
-//     * @param tag
-//     * @throws Exception
-//     */
-//    @RabbitListener(queues = "socketQueue")
-//    public void getMessAge(String message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
-//
-//        log.info("发来消息：" + message);
-//        //  确认收到--消费  不需要确认 因为是配置自动确认
-//        // channel.basicAck(tag, false);
-//
-//        //用来判断session中是否存在数据
-//        if (sessions.size() != 0) {
-//            for (WebSocketServer s : sessions) {
-//                if (s != null) {
-//                    //向已连接客户端发送信息
-//                    s.session.getBasicRemote().sendText(message);
-//                }
-//            }
-//        }
-//    }
+    @PostConstruct
+    public void init() {
+        System.out.println("websocket 加载");
+    }
+    private static final AtomicInteger onlineCount = new AtomicInteger(0);
+    /**
+     * concurrent包的线程安全Set，用来存放每个客户端对应的Session对象。
+     */
+    private static final CopyOnWriteArraySet<Session> sessionSet = new CopyOnWriteArraySet<>();
 
 
     /**
-     * 连接成功
+     * 连接建立成功调用的方法
      */
     @OnOpen
     public void onOpen(Session session) {
-        this.session = session;
-        //这个一定要写，第一次很容易忽略！
-        sessions.add(this);
-        log.info("[WebSocket] 连接成功，当前连接人数为：={}", sessions.size());
-
+        sessionSet.add(session);
+        // 在线数加1
+        int cnt = onlineCount.incrementAndGet();
+        log.info("有连接加入，当前连接数为：{}", cnt);
+        sendMessage(session, "连接成功");
     }
 
     /**
-     * 连接断开
+     * 连接关闭调用的方法
      */
     @OnClose
-    public void onClose() {
-        //释放
-        sessions.remove(this);
-        log.info("[WebSocket] 退出成功，当前连接人数为：={}", sessions.size());
+    public void onClose(Session session) {
+        sessionSet.remove(session);
+        int cnt = onlineCount.decrementAndGet();
+        log.info("有连接关闭，当前连接数为：{}", cnt);
     }
 
     /**
-     * 收到消息
+     * 收到客户端消息后调用的方法
+     *
+     * @param message
+     *            客户端发送过来的消息
      */
     @OnMessage
-    public String onMessage(String message) {
-        log.info("[WebSocket] 收到消息：{}", message);
+    public void onMessage(String message, Session session) {
+        log.info("来自客户端的消息：{}",message);
+        sendMessage(session, "收到消息，消息内容："+message);
 
-        return "你已成功连接，这是webSocket服务端的返回信息！";
+    }
+
+    /**
+     * 出现错误
+     * @param session
+     * @param error
+     */
+    @OnError
+    public void onError(Session session, Throwable error) {
+        log.error("发生错误：{}，Session ID： {}",error.getMessage(),session.getId());
+        error.printStackTrace();
+    }
+
+    /**
+     * 发送消息，实践表明，每次浏览器刷新，session会发生变化。
+     * @param session
+     * @param message
+     */
+    public static void sendMessage(Session session, String message) {
+        try {
+            session.getBasicRemote().sendText(String.format("%s (From Server，Session ID=%s)",message,session.getId()));
+        } catch (IOException e) {
+            log.error("发送消息出错：{}", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 群发消息
+     */
+    public static void broadCastMessage(String message) {
+        for (Session session : sessionSet) {
+            if(session.isOpen()){
+                sendMessage(session, message);
+            }
+        }
+    }
+
+    /**
+     * 指定Session发送消息
+     * @param sessionId
+     * @param message
+     * @throws IOException
+     */
+    public static void sendMessage(String message, String sessionId) throws IOException {
+        Session session = null;
+        for (Session s : sessionSet) {
+            if(s.getId().equals(sessionId)){
+                session = s;
+                break;
+            }
+        }
+        if(session!=null){
+            sendMessage(session, message);
+        }
+        else{
+            log.warn("没有找到你指定ID的会话：{}",sessionId);
+        }
     }
 
 }

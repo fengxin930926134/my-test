@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 测试用例
+ * 1.执行"mqnamesrv.cmd"启动nameServer 2.执行"mqbroker.cmd -n localhost:9876"，用于启动broker。 当nameServer和broker都启动完成后，rocketmq的服务端就已经可以对外提供服务了
  */
 @Slf4j
 @RunWith(SpringRunner.class)

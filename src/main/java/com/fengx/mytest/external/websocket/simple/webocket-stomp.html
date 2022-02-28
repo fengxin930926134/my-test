@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<head>
+<title>webocket-stomp</title>
+<link href="https://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css"
+    rel="stylesheet">
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+</head>
+<body class="container">
+   <button type="button" id="send" class="btn btn-default" data-dismiss="modal">发送消息</button>
+</body>
+<script type="text/javascript" src="./stomp.min.js"></script>
+<script type="text/javascript" src="./sockjs.min.js"></script>
+<script type="text/javascript">
+	var rootPath = 'http://localhost:8081'
+	var stompClient;
+	var socket;
+	function connect() {
+		socket = new SockJS(rootPath + '/any-socket'); //1
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			console.log('Connected: ' + frame);
+			
+			// 订阅 /topic/to-all 实现公告
+			stompClient.subscribe('/topic/to-all', function (dd) {
+				console.log(dd);
+				alert(dd.body)
+			});
+			// 订阅 /user/userId/to-one 实现点对点
+			stompClient.subscribe('/user/123/to-one', function (dd) {
+				console.log(dd);
+				alert(dd.body)
+			});
+		});
+
+		//监听窗口关闭
+		window.onbeforeunload = function (event) {
+			socket.close()
+		}
+	}
+	
+	connect();
+	
+	$("#send").click(function () {
+		console.log("测试");
+		if (socket == null) {
+			alert('WebSocket连接未打开');
+			return true;
+		}
+		if (socket.readyState == 0) {
+			alert('WebSocket正在连接中，请稍后再发送消息');
+			return true;
+		}
+		if (socket.readyState == 2) {
+			alert('WebSocket连接正在关闭中，无法发送消息');
+			return true;
+		}
+		if (socket.readyState == 3) {
+			alert('WebSocket连接已关闭，无法发送消息');
+			return true;
+		}
+		// client.send(destination url[, headers[, body]]);
+		stompClient.send("/app/to-one", {}, "helllllllllllllllllllllllllllllllll");
+	});
+</script>
+</html>
