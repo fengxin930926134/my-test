@@ -1,15 +1,55 @@
 package com.fengx.mytest.base.random;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
-public class RandomUUID {
-
+public class RandomUtils {
     private static final String[] CHARS = new String[]{"a", "b", "c", "d", "e", "f",
             "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
             "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z"};
+
+    /**
+     * 生成随机数
+     *
+     * @param max 0-max 不包括max
+     * @return int
+     */
+    public static int randomInt(int max) {
+        Random random = new Random();
+        return random.nextInt(max);
+    }
+
+    /**
+     * 生成随机数数组(不重复)
+     *
+     * @param max 0-max 不包括max
+     * @param number 数量
+     * @return Set<Integer>
+     */
+    public static Set<Integer> randomInts(int max, int number) {
+        Set<Integer> values = new HashSet<>(number);
+        if (number >= max) {
+            for (int i = 0; i < max; i++) {
+                values.add(i);
+            }
+        } else {
+            Random random = new Random();
+            for (int i = 0; i < number; i++) {
+                int value = random.nextInt(max);
+                values.add(value);
+            }
+            if (values.size() < number) {
+                values.addAll(randomInts(max, number - values.size()));
+            }
+        }
+        return values;
+    }
+
 
     /**
      * 生成短UUID（8位）
@@ -45,5 +85,4 @@ public class RandomUUID {
         }
         return shortBuffer.toString();
     }
-
 }

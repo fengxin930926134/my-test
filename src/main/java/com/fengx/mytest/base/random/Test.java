@@ -2,8 +2,8 @@ package com.fengx.mytest.base.random;
 
 public class Test {
     public static void main(String[] args) {
-        String s = RandomUUID.generateUuid(64);
-        System.out.println(s);
-        System.out.println(s.length());
+        long l = System.currentTimeMillis();
+        System.out.println(RandomUtils.randomInts(100, 2));
+        System.out.println(System.currentTimeMillis() - l);
     }
 }
