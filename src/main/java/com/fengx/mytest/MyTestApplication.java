@@ -3,6 +3,7 @@ package com.fengx.mytest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -11,8 +12,12 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import javax.servlet.MultipartConfigElement;
 
+/**
+ * @ EnableCaching 注解启动了Spring的缓存机制，它会使应用检测所有缓存相关的注解并开始工作，同时还会创建一个CacheManager的bean,可以被我们的应用注入使用。
+ */
 @EnableAsync
 @SpringBootApplication
+@EnableCaching
 public class MyTestApplication {
 
     public static void main(String[] args) {
