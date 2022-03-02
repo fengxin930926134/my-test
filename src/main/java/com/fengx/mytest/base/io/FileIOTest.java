@@ -1,13 +1,12 @@
-package com.fengx.mytest.base.fileio;
+package com.fengx.mytest.base.io;
 
 import java.io.File;
 import java.io.FileWriter;
 
 /**
- * Java IO类库是阻塞IO；从1.4版本开始，引进了新的异步IO库，被称为Java New IO类库，简称为JAVA NIO。
- * New IO类库的目标，就是要让Java支持非阻塞IO，基于这个原因，更多的人喜欢称Java NIO为非阻塞IO（Non-Block IO），称“老的”阻塞式Java IO为OIO（Old IO）。
+ * file io test
  */
-public class OIOTest {
+public class FileIOTest {
     public static void main(String[] args) {
         // FileInputStream
 //        try {
