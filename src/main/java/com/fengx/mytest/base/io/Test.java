@@ -8,6 +8,10 @@ import java.io.File;
  *
  * InputStream/Reader是所有输入流的基类，前者是字节输入流，后者是字符输入流
  * OutputStream/Writer是所有输出流的基类，前者是字节输出流，后者是字符输出流
+ *
+ * BIO: Block IO同步阻塞式IO,就是我们平常使用的传统IO,它的特点是模式简单使用方便，并发处理能力低.
+ * NIO: Non IO同步非阻塞IO，是传统IO的升级，户端和服务器端通过Channel (通道)通讯，实现了多路复用。
+ * AIO: Asynchronous IO是NIO的升级，也叫NIO2,实现了异步非堵塞IO，异步IO的操作基于事件和回调机制.
  */
 public class Test {
     public static void main(String[] args) {
