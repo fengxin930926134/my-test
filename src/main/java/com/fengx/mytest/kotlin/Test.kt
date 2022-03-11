@@ -1,6 +1,5 @@
 package com.fengx.mytest.kotlin
 
-import com.fengx.mytest.kotlin.base.Test
 import java.io.File
 
 //sampleStart
