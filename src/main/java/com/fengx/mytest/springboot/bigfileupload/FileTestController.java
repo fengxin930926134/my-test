@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequestMapping("/file")
 @RestController
 @CrossOrigin
-public class TestController {
+public class FileTestController {
 
     @PostMapping("/normal/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
