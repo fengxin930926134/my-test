@@ -57,6 +57,28 @@ public class Test {
 //        System.out.println(getChinese(text));
 //        Double a = 0.0 * 0 / 0.0;
 //        System.out.println(a.isNaN());
+
+        String html = "<p><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; " +
+                "font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); " +
+                "font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span>" +
+                "<span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">" +
+                "实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); " +
+                "font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">" +
+                "实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); " +
+                "font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700; white-space: normal;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span><span style=\"color: rgb(89, 89, 89); font-family: 微软雅黑; font-size: 20px; font-weight: 700;\">实训步骤&nbsp;</span></p>";
+
+        String pattern = "(font-family: \\S*;)";
+
+        System.out.println(Pattern.matches(pattern, html));
+
+        System.out.println();
+        Matcher match = Pattern.compile(pattern).matcher(html);
+        while (match.find()) {
+            System.out.println(match.group());
+        }
+        System.out.println();
+
+        System.out.println(html.replaceAll(pattern, ""));
     }
 
     public static String getChinese(String paramValue) {

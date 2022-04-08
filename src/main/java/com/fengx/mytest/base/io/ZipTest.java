@@ -17,7 +17,7 @@ public class ZipTest {
         }
         ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(file));
         // 携带目录则压缩的时候会保存在此目录
-        zip.putNextEntry(new ZipEntry("test1/b.txt"));
+        zip.putNextEntry(new ZipEntry("/hahah/test1/b.txt"));
         FileInputStream zipSource = new FileInputStream(new File("C:\\Users\\gzxzl\\Desktop\\test\\test1\\b.txt"));
         BufferedInputStream bufferStream = new BufferedInputStream(zipSource, 1024 * 10);
         int read;
