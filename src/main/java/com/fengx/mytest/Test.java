@@ -497,5 +497,11 @@ public class Test {
         while (match2.find()) {
             System.out.println(match2.group());
         }
+
+        String pattern3 = "(<meta name=\"csrf-token\" content=\"\\S*\")";
+        Matcher match3 = Pattern.compile(pattern3).matcher(html);
+        while (match3.find()) {
+            System.out.println(match3.group());
+        }
     }
 }

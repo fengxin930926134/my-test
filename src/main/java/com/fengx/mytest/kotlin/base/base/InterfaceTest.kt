@@ -47,24 +47,24 @@ class D : A, B {
 
 //函数式（SAM）接口 只有一个抽象方法的接口称为函数式接口或 单一抽象方法（SAM）接口。函数式接口可以有多个非抽象成员，但只能有一个抽象成员。
 //可以用 fun 修饰符在 Kotlin 中声明一个函数式接口。
-fun interface IntPredicate  {
-    fun accept(i: Int): Boolean
-}
-
-fun main() {
-    D().foo()
-    println()
-    // 创建一个类的实例
-    val isEven = object : IntPredicate {
-        override fun accept(i: Int): Boolean {
-            println(i)
-            return true
-        }
-
-    }
-
-    isEven.accept(222)
-
-    val intPredicate = IntPredicate { println(it);it % 2 == 0 }
-    intPredicate.accept(200)
-}
+//fun interface IntPredicate  {
+//    fun accept(i: Int): Boolean
+//}
+//
+//fun main() {
+//    D().foo()
+//    println()
+//    // 创建一个类的实例
+//    val isEven = object : IntPredicate {
+//        override fun accept(i: Int): Boolean {
+//            println(i)
+//            return true
+//        }
+//
+//    }
+//
+//    isEven.accept(222)
+//
+//    val intPredicate = IntPredicate { println(it);it % 2 == 0 }
+//    intPredicate.accept(200)
+//}
