@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestController {
 
+    private final Integer sleepTime = 2000;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -32,16 +34,16 @@ public class TestController {
         String csrfToken = getCsrfToken(homePage);
         ids.addAll(getIds(homePage));
 
-        Thread.sleep(1000);
+        Thread.sleep(sleepTime);
         String twoPage = getByPage(ids, 2, csrfToken);
         ids.addAll(getIds(twoPage));
 
-        Thread.sleep(1000);
+        Thread.sleep(sleepTime);
         String threePage = getByPage(ids, 3, csrfToken);
         ids.addAll(getIds(threePage));
 
-        for (int i = 4; i < 5; i++) {
-            Thread.sleep(1000);
+        for (int i = 4; i < 20; i++) {
+            Thread.sleep(sleepTime);
             String nextPage = getNextPage(ids, 4, csrfToken);
             ids.addAll(getIds(nextPage));
         }
@@ -80,9 +82,9 @@ public class TestController {
 
         for (int i = 0; i < values.size(); i++) {
             Double aDouble = values.get(i);
-            if (aDouble > 30) {
+            if (aDouble > 100) {
                 dianzan(ids.get(i));
-                Thread.sleep(1000);
+                Thread.sleep(sleepTime);
             }
         }
 
@@ -153,32 +155,5 @@ public class TestController {
         ResponseEntity<String> results = restTemplate.exchange(url, method, entity, String.class);
         return results.getBody();
     }
-
-//    @Override
-//    public String uploadWeiXiMaterial(String accessToken, String fileType, File file) {
-//        String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?" +
-//                "access_token=" + accessToken +
-//                "&type=" + fileType;
-//        FileSystemResource resource = new FileSystemResource(file);
-//        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-//        params.add("media", resource);
-//        String json = restTemplate.postForObject(url, params, String.class);
-//        JSONObject object = JSONUtils.string2Json(json);
-//        verification(object);
-//        return object.getString("media_id");
-//    }
-//
-//    @Override
-//    public String addWeiXiEssay(String accessToken, JSONObject body) {
-//        String url = "https://api.weixin.qq.com/cgi-bin/draft/add?" +
-//                "access_token=" + accessToken;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<String> formEntity = new HttpEntity<>(body.toString(), headers);
-//        String json = restTemplate.postForObject(url, formEntity, String.class);
-//        JSONObject object = JSONUtils.string2Json(json);
-//        verification(object);
-//        return object.getString("media_id");
-//    }
 
 }
