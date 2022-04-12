@@ -503,5 +503,11 @@ public class Test {
         while (match3.find()) {
             System.out.println(match3.group());
         }
+
+        String pattern4 = "(href=\"/p/\\S*#comments)";
+        Matcher match4 = Pattern.compile(pattern4).matcher(html);
+        while (match4.find()) {
+            System.out.println(match4.group().replace("href=\"", "").replace("#comments", ""));
+        }
     }
 }

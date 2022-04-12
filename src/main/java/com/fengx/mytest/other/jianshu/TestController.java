@@ -72,6 +72,15 @@ public class TestController {
                     .replace("\"", ""));
         }
 
+        // 页面地址
+        List<String> urls = Lists.newArrayList();
+        String pattern4 = "(href=\"/p/\\S*#comments)";
+        Matcher match4 = Pattern.compile(pattern4).matcher(html);
+        while (match4.find()) {
+            urls.add("https://www.jianshu.com" + match4.group()
+                    .replace("href=\"", "").replace("#comments", ""));
+        }
+
         // 获取能力值
         List<Double> values = Lists.newArrayList();
         String pattern2 = "(<i class=\"iconfont ic-paid1\"></i> \\S*)";
@@ -83,6 +92,8 @@ public class TestController {
         for (int i = 0; i < values.size(); i++) {
             Double aDouble = values.get(i);
             if (aDouble > 100) {
+                fangwen(urls.get(i));
+                Thread.sleep(sleepTime);
                 dianzan(ids.get(i));
                 Thread.sleep(sleepTime);
             }
@@ -136,6 +147,16 @@ public class TestController {
         if (remainingEnergyPoint <= 52) {
             System.exit(0);
         }
+    }
+
+    private void fangwen(String url) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+        httpHeaders.setContentType(MediaType.TEXT_HTML);
+        httpHeaders.add("If-None-Match", "212b4-9A6TFs/FDMVVMQClhmFWczKC5no");
+        httpHeaders.add("Upgrade-Insecure-Requests", "1");
+        String http = http(httpHeaders, url, HttpMethod.GET);
+        // log.info(http);
     }
 
     private String http(HttpHeaders headers, String url, HttpMethod method) {
