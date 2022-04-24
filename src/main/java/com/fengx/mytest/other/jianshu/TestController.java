@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 简书点赞
+ */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,7 +45,7 @@ public class TestController {
         String threePage = getByPage(ids, 3, csrfToken);
         ids.addAll(getIds(threePage));
 
-        for (int i = 4; i < 20; i++) {
+        for (int i = 4; i < 2000; i++) {
             Thread.sleep(sleepTime);
             String nextPage = getNextPage(ids, 4, csrfToken);
             ids.addAll(getIds(nextPage));

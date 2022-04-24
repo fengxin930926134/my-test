@@ -35,8 +35,8 @@ public class MyTestApplication {
     @Bean
     public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(15000);
-        factory.setReadTimeout(5000);
+        factory.setConnectTimeout(200000);
+        factory.setReadTimeout(200000);
         return factory;
     }
 

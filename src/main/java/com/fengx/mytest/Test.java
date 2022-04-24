@@ -10,7 +10,9 @@ public class Test {
         LocalDate parse = LocalDate.parse("1995-02-08");
         System.out.println(parse.toString());
         System.out.println("D30233475BE76016E0530100007F6C04".length());
+    }
 
+    private void test1() {
         String html = "2022-04-08 16:28:48.492  INFO 14588 --- [           main] c.f.mytest.other.jianshu.TestController  : <!DOCTYPE html>\n" +
                 "<!--[if IE 6]><html class=\"ie lt-ie8\"><![endif]-->\n" +
                 "<!--[if IE 7]><html class=\"ie lt-ie8\"><![endif]-->\n" +
