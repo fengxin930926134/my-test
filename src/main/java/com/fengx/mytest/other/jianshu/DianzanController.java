@@ -8,9 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -21,35 +25,47 @@ import java.util.regex.Pattern;
  * 简书点赞
  */
 @Slf4j
+@RequestMapping("/dianzan")
+@RestController
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TestController {
+public class DianzanController {
 
-    private final Integer sleepTime = 2000;
+    private static final Integer sleepTime = 2000;
+    private static final Integer max = 60;
+    private static Boolean exit = false;
 
     @Autowired
     private RestTemplate restTemplate;
 
     @Test
+    @Scheduled(cron = "0 * */2 * * ?")
+    @GetMapping("/index")
     public void test() throws InterruptedException {
+        log.info("开始点赞...");
         List<String> ids = Lists.newArrayList();
         String homePage = getHomePage();
         String csrfToken = getCsrfToken(homePage);
         ids.addAll(getIds(homePage));
 
-        Thread.sleep(sleepTime);
-        String twoPage = getByPage(ids, 2, csrfToken);
-        ids.addAll(getIds(twoPage));
-
-        Thread.sleep(sleepTime);
-        String threePage = getByPage(ids, 3, csrfToken);
-        ids.addAll(getIds(threePage));
-
-        for (int i = 4; i < 2000; i++) {
+        if (!exit) {
             Thread.sleep(sleepTime);
-            String nextPage = getNextPage(ids, 4, csrfToken);
+            String twoPage = getByPage(ids, 2, csrfToken);
+            ids.addAll(getIds(twoPage));
+        }
+
+        if (!exit) {
+            Thread.sleep(sleepTime);
+            String threePage = getByPage(ids, 3, csrfToken);
+            ids.addAll(getIds(threePage));
+        }
+
+        for (int i = 4; !exit; i++) {
+            Thread.sleep(sleepTime);
+            String nextPage = getNextPage(ids, i, csrfToken);
             ids.addAll(getIds(nextPage));
         }
+        log.info("结束点赞...");
 
     }
 
@@ -92,10 +108,10 @@ public class TestController {
             values.add(Double.parseDouble(match2.group().replace("<i class=\"iconfont ic-paid1\"></i> ", "")));
         }
 
-        for (int i = 0; i < values.size(); i++) {
+        for (int i = 0; i < values.size() && !exit; i++) {
             Double aDouble = values.get(i);
             if (aDouble > 100) {
-                fangwen(urls.get(i));
+                // fangwen(urls.get(i));
                 Thread.sleep(sleepTime);
                 dianzan(ids.get(i));
                 Thread.sleep(sleepTime);
@@ -147,8 +163,8 @@ public class TestController {
         JSONObject jsonObject = JSONObject.parseObject(http);
         int remainingEnergyPoint = jsonObject.getIntValue("remaining_energy_point");
         log.info("点赞后能量：" + remainingEnergyPoint);
-        if (remainingEnergyPoint <= 52) {
-            System.exit(0);
+        if (remainingEnergyPoint <= max) {
+            exit = true;
         }
     }
 

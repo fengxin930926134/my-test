@@ -5,6 +5,7 @@ import com.fengx.mytest.springboot.response.ObjectResponse;
 import com.fengx.mytest.springboot.response.Response;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RequestMapping("/test")
 @RestController
+@EnableScheduling
 public class TestController {
 
     @GetMapping("/index")
