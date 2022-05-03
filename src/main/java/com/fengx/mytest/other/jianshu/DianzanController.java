@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class DianzanController {
 
     private static final Integer sleepTime = 2000;
-    private static final Integer max = 60;
+    private static final Integer max = 56;
     private static Boolean exit = false;
 
     @Autowired
@@ -42,6 +42,7 @@ public class DianzanController {
     @Scheduled(cron = "0 * */2 * * ?")
     @GetMapping("/index")
     public void test() throws InterruptedException {
+        exit = false;
         log.info("开始点赞...");
         List<String> ids = Lists.newArrayList();
         String homePage = getHomePage();
