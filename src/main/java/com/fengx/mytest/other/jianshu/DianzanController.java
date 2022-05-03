@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,34 +40,39 @@ public class DianzanController {
     private RestTemplate restTemplate;
 
     @Test
-    @Scheduled(cron = "0 * */2 * * ?")
+    @Scheduled(cron = "0 0 */3 * * ?")
     @GetMapping("/index")
-    public void test() throws InterruptedException {
+    public void test() {
         exit = false;
-        log.info("开始点赞...");
+        log.info("开始点赞..." + LocalDateTime.now());
         List<String> ids = Lists.newArrayList();
-        String homePage = getHomePage();
-        String csrfToken = getCsrfToken(homePage);
-        ids.addAll(getIds(homePage));
+        try {
+            String homePage = getHomePage();
+            String csrfToken = getCsrfToken(homePage);
+            ids.addAll(getIds(homePage));
 
-        if (!exit) {
-            Thread.sleep(sleepTime);
-            String twoPage = getByPage(ids, 2, csrfToken);
-            ids.addAll(getIds(twoPage));
-        }
+            if (!exit) {
+                Thread.sleep(sleepTime);
+                String twoPage = getByPage(ids, 2, csrfToken);
+                ids.addAll(getIds(twoPage));
+            }
 
-        if (!exit) {
-            Thread.sleep(sleepTime);
-            String threePage = getByPage(ids, 3, csrfToken);
-            ids.addAll(getIds(threePage));
-        }
+            if (!exit) {
+                Thread.sleep(sleepTime);
+                String threePage = getByPage(ids, 3, csrfToken);
+                ids.addAll(getIds(threePage));
+            }
 
-        for (int i = 4; !exit; i++) {
-            Thread.sleep(sleepTime);
-            String nextPage = getNextPage(ids, i, csrfToken);
-            ids.addAll(getIds(nextPage));
+            for (int i = 4; !exit; i++) {
+                Thread.sleep(sleepTime);
+                String nextPage = getNextPage(ids, i, csrfToken);
+                ids.addAll(getIds(nextPage));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("执行错误");
         }
-        log.info("结束点赞...");
+        log.info("结束点赞..." + LocalDateTime.now());
 
     }
 
