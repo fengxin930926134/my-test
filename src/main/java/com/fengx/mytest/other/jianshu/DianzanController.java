@@ -51,7 +51,7 @@ public class DianzanController {
     }
 
     @Test
-    @Scheduled(cron = "0 0 */4 * * ?")
+    @Scheduled(cron = "0 0 */6 * * ?")
     @GetMapping("/index")
     public void test() {
         exit = false;
@@ -128,13 +128,17 @@ public class DianzanController {
 
         for (int i = 0; i < values.size() && !exit; i++) {
             Double aDouble = values.get(i);
-            if (aDouble > 100) {
+            if (aDouble > 30) {
                 String fangwen = fangwen(urls.get(i));
                 if (isDianzan(fangwen)) {
                     log.info("已点赞，跳过");
                 } else {
                     Thread.sleep(sleepTime);
-                    dianzan(ids.get(i));
+                    if (aDouble > 100) {
+                        dianzan(ids.get(i), 2);
+                    } else {
+                        dianzan(ids.get(i), 1);
+                    }
                 }
                 Thread.sleep(sleepTime);
             }
@@ -182,18 +186,18 @@ public class DianzanController {
         return http(httpHeaders, url, HttpMethod.POST, params);
     }
 
-    private void dianzan(String id) {
+    private void dianzan(String id, int number) {
         String url = "https://www.jianshu.com/shakespeare/notes/" + id + "/like";
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Accept", "application/json");
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         JSONObject object = new JSONObject();
-        object.put("energy_point", 2);
+        object.put("energy_point", number);
         object.put("note_id", Integer.parseInt(id));
         String http = http(httpHeaders, url, HttpMethod.POST, object);
         JSONObject jsonObject = JSONObject.parseObject(http);
         int remainingEnergyPoint = jsonObject.getIntValue("remaining_energy_point");
-        log.info("点赞后能量：" + remainingEnergyPoint);
+        log.info("number:" + number + ",点赞后能量：" + remainingEnergyPoint);
         if (remainingEnergyPoint <= max) {
             exit = true;
         }
