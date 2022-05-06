@@ -34,6 +34,11 @@ public class DianzanController {
     private static final Integer max = 56;
     private static Boolean exit = false;
 
+    /**
+     * 判断是否已点赞的字符
+     */
+    private static final String vDianZan = "_3oieia";
+
     private static String Cookie = "_ga=GA1.2.538624253.1644386005; UM_distinctid=17edd0b33c068d-057a92641ba9bb-33544874-1fa400-17edd0b33c1a50; __yadk_uid=tvbZYGY5BLMbSxzU61kuvARpFzCllWhz; web_login_version=MTY0ODA4NDUxMA%3D%3D--9592b6027812044ecce7a71d7373ae3a38f2f63c; _gid=GA1.2.441074158.1649216108; remember_user_token=W1sxOTYxOTM4OF0sIiQyYSQxMSRMODdtN1ZkZWp2TER0YjF1b0lYVC9PIiwiMTY0OTM4MzA2OS41MDg4Njk0Il0%3D--630ef01daa25b7df8465c05f00f84d002ebcfcdf; read_mode=day; default_font=font2; locale=zh-CN; _m7e_session_core=0543381d85a067212d8bdc7ec7b72daf; Hm_lvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1648789461,1649238087,1649322037,1649383072; CNZZDATA1279807957=1690344059-1644375653-https%253A%252F%252Fwww.baidu.com%252F%7C1649398055; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2219619388%22%2C%22first_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_utm_source%22%3A%22recommendation%22%2C%22%24latest_utm_medium%22%3A%22seo_notes%22%2C%22%24latest_utm_campaign%22%3A%22maleskine%22%2C%22%24latest_utm_content%22%3A%22note%22%7D%2C%22%24device_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%7D; Hm_lpvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1649404886";
 
     @Autowired
@@ -124,14 +129,27 @@ public class DianzanController {
         for (int i = 0; i < values.size() && !exit; i++) {
             Double aDouble = values.get(i);
             if (aDouble > 100) {
-                // fangwen(urls.get(i));
-                Thread.sleep(sleepTime);
-                dianzan(ids.get(i));
+                String fangwen = fangwen(urls.get(i));
+                if (isDianzan(fangwen)) {
+                    log.info("已点赞，跳过");
+                } else {
+                    Thread.sleep(sleepTime);
+                    dianzan(ids.get(i));
+                }
                 Thread.sleep(sleepTime);
             }
         }
 
         return ids;
+    }
+
+    /**
+     * 是否已点赞
+     */
+    private boolean isDianzan(String html) {
+        String pattern = "(" + vDianZan + ")";
+        Matcher match = Pattern.compile(pattern).matcher(html);
+        return match.find();
     }
 
     private String getHomePage() {
@@ -181,14 +199,14 @@ public class DianzanController {
         }
     }
 
-    private void fangwen(String url) {
+    private String fangwen(String url) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
         httpHeaders.setContentType(MediaType.TEXT_HTML);
         httpHeaders.add("If-None-Match", "212b4-9A6TFs/FDMVVMQClhmFWczKC5no");
         httpHeaders.add("Upgrade-Insecure-Requests", "1");
-        String http = http(httpHeaders, url, HttpMethod.GET);
-        // log.info(http);
+        // 返回的是网页
+        return http(httpHeaders, url, HttpMethod.GET);
     }
 
     private String http(HttpHeaders headers, String url, HttpMethod method) {
