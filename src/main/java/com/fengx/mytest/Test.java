@@ -1,13 +1,19 @@
 package com.fengx.mytest;
 
-import java.net.ConnectException;
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
     public static void main(String[] args) {
-        test1();
+//        test1();
+
+
+        BigDecimal divide = new BigDecimal("10234150.123400")
+                .divide(new BigDecimal(10000), 10, RoundingMode.DOWN).stripTrailingZeros();
+        System.out.println(divide);
+
     }
 
     private static void test1() {
