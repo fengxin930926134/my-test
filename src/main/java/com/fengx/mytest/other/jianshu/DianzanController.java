@@ -129,13 +129,13 @@ public class DianzanController {
 
         for (int i = 0; i < values.size() && !exit; i++) {
             Double aDouble = values.get(i);
-            if (aDouble > 30) {
+            if (aDouble > 90) {
                 String fangwen = fangwen(urls.get(i));
                 if (isDianzan(fangwen)) {
                     log.info("已点赞，跳过");
                 } else {
                     Thread.sleep(sleepTime);
-                    if (aDouble > 100) {
+                    if (aDouble > 180) {
                         dianzan(ids.get(i), 2);
                     } else {
                         dianzan(ids.get(i), 1);

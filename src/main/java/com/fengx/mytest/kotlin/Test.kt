@@ -16,20 +16,24 @@ fun getStringLength(obj: Any): Int? {
 
 fun main() {
 
-    val channels: MutableList<String> = mutableListOf(
-            "1",
-            "2",
-            "3",
-            "4"
-    )
-
-    for ((index, item) in channels.withIndex()) {
-        println("$index $item")
+    for (index in 1..1) {
+        println(index)
     }
 
-    for ((index, item) in channels.reversed().withIndex()) {
-        println("$index $item")
-    }
+//    val channels: MutableList<String> = mutableListOf(
+//            "1",
+//            "2",
+//            "3",
+//            "4"
+//    )
+//
+//    for ((index, item) in channels.withIndex()) {
+//        println("$index $item")
+//    }
+//
+//    for ((index, item) in channels.reversed().withIndex()) {
+//        println("$index $item")
+//    }
 
 //    val files = File("Test").listFiles()
 //
