@@ -10,10 +10,16 @@ public class Test {
 //        test1();
 
 
-        BigDecimal divide = new BigDecimal("10234150.123400")
-                .divide(new BigDecimal(10000), 10, RoundingMode.DOWN).stripTrailingZeros();
-        System.out.println(divide);
-
+        double d = 1.012;
+        //向上取整
+        double downd = Math.ceil(d * 100);
+        //然后把向上取整的数转换成int类型
+        int i = new Double(downd).intValue();
+        //转换成long类型
+        long l = new Double(downd).longValue();
+        System.out.println("最终转int的结果值:=========>>>>>>>>i:"+i);
+        System.out.println("最终转long的结果值:=========>>>>>>>l:"+l);
+        System.out.println("保留2位不进位" + Math.round(d * 100) / 100.0);
     }
 
     private static void test1() {
