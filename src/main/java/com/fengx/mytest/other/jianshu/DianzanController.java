@@ -250,8 +250,6 @@ public class DianzanController {
     }
 
     private <T> String http(HttpHeaders headers, String url, HttpMethod method, T body) {
-        headers.set("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Mobile Safari/537.36");
-        headers.set("Cookie", Cookie);
         HttpEntity<T> entity;
         if (body == null) {
             entity = new HttpEntity<>(headers);
