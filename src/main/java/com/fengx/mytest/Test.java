@@ -139,10 +139,12 @@ public class Test {
 //                "贵州工程职业学院    综合    贵州    2021    文科    专科    183    125784\n" +
 //                "贵州工贸职业学院    综合    贵州    2021    文科    专科    183    125781\n" +
 //                "贵州城市职业学院    综合    贵州    2021    文科    专科    180    125798\n";
-        String[] split = text.split("\n");
-        for (int i = 0; i < split.length; i++) {
-            System.out.println(split[i]);
-        }
+//        String[] split = text.split("\n");
+//        for (int i = 0; i < split.length; i++) {
+//            System.out.println(split[i]);
+//        }
+
+
 //        double d = 79.95;
 //        //向上取整
 //        double downd = Math.ceil(d * 100);

@@ -1,11 +1,10 @@
 package com.fengx.mytest.base.datetime;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class Test {
     public static void main(String[] args) {
@@ -47,12 +46,25 @@ public class Test {
 //        // 最大时间
 //        System.out.println(LocalDateTime.now().with(LocalTime.MAX));
 
-        List<LocalDate> localDates = getAllDatesInTheDateRange(LocalDate.of(2014, 6, 1),
-                LocalDate.of(2016, 6, 1));
-        localDates.forEach(item -> {
-            System.out.println(item);
-        });
-        System.out.println(localDates.size());
+//        List<LocalDate> localDates = getAllDatesInTheDateRange(LocalDate.of(2014, 6, 1),
+//                LocalDate.of(2016, 6, 1));
+//        localDates.forEach(item -> {
+//            System.out.println(item);
+//        });
+//        System.out.println(localDates.size());
+
+
+        /// 获取范围时间跳过工作日, 参数起始日期，实际天数
+        LocalDate start = LocalDate.of(2022, 11, 1);
+        LocalDate end = LocalDate.of(2022, 11, 30);
+        System.out.println(start + " " + end);
+        AtomicInteger index = new AtomicInteger(0);
+        long days = end.toEpochDay() - start.toEpochDay() + 1;
+        System.out.println(days);
+        int sum = Stream.generate(() -> start.plusDays(index.getAndIncrement())).limit(days).
+                filter(ld -> ld.getDayOfWeek() != DayOfWeek.SATURDAY && ld.getDayOfWeek() != DayOfWeek.SUNDAY)
+                .map(e -> 1).mapToInt(Integer::intValue).sum();
+        System.out.println(sum);
     }
 
     /**
