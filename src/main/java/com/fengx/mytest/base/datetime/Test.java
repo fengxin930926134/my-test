@@ -1,13 +1,17 @@
 package com.fengx.mytest.base.datetime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 //        System.out.println("时间间隔");
 //        // 2021-04-12 10:00 ~ 11:40
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -54,17 +58,27 @@ public class Test {
 //        System.out.println(localDates.size());
 
 
-        /// 获取范围时间跳过工作日, 参数起始日期，实际天数
-        LocalDate start = LocalDate.of(2022, 11, 1);
-        LocalDate end = LocalDate.of(2022, 11, 30);
-        System.out.println(start + " " + end);
-        AtomicInteger index = new AtomicInteger(0);
-        long days = end.toEpochDay() - start.toEpochDay() + 1;
-        System.out.println(days);
-        int sum = Stream.generate(() -> start.plusDays(index.getAndIncrement())).limit(days).
-                filter(ld -> ld.getDayOfWeek() != DayOfWeek.SATURDAY && ld.getDayOfWeek() != DayOfWeek.SUNDAY)
-                .map(e -> 1).mapToInt(Integer::intValue).sum();
-        System.out.println(sum);
+//        /// 获取范围时间跳过工作日, 参数起始日期，实际天数
+//        LocalDate start = LocalDate.of(2022, 11, 1);
+//        LocalDate end = LocalDate.of(2022, 11, 30);
+//        System.out.println(start + " " + end);
+//        AtomicInteger index = new AtomicInteger(0);
+//        long days = end.toEpochDay() - start.toEpochDay() + 1;
+//        System.out.println(days);
+//        int sum = Stream.generate(() -> start.plusDays(index.getAndIncrement())).limit(days).
+//                filter(ld -> ld.getDayOfWeek() != DayOfWeek.SATURDAY && ld.getDayOfWeek() != DayOfWeek.SUNDAY)
+//                .map(e -> 1).mapToInt(Integer::intValue).sum();
+//        System.out.println(sum);
+//
+//        System.out.println(LocalDate.now().getDayOfWeek().getValue());
+
+        // 日期格式转换
+        String date = "2月15日";
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+        Date parse = format.parse(date);
+        System.out.println(parse.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        System.out.println(LocalDate.now().format(formatter));
     }
 
     /**
