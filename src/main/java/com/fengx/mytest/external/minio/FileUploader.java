@@ -2,9 +2,7 @@ package com.fengx.mytest.external.minio;
 
 import io.minio.*;
 import io.minio.errors.MinioException;
-import io.minio.messages.Bucket;
-import io.minio.messages.SseConfiguration;
-import io.minio.messages.VersioningConfiguration;
+import io.minio.messages.*;
 
 import java.io.*;
 import java.security.InvalidKeyException;
@@ -38,17 +36,63 @@ public class FileUploader {
                         GetBucketEncryptionArgs.builder().bucket("testdir").build());
         System.out.println(config);
 
+        // 版本
         VersioningConfiguration versioningConfiguration =
                 minioClient.getBucketVersioning(
                         GetBucketVersioningArgs.builder().bucket("testdir").build());
-        System.out.println(versioningConfiguration.status());
+        System.out.println("getBucketVersioning configuration: " +versioningConfiguration.status());
+
+        // 生命周期
+        LifecycleConfiguration lifecycleConfiguration =
+                minioClient.getBucketLifecycle(
+                        GetBucketLifecycleArgs.builder().bucket("testdir").build());
+        System.out.println("Lifecycle configuration: " + lifecycleConfiguration);
+
+        // 获取桶策略
+        String policy =
+                minioClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("testdir").build());
+        System.out.println("BucketPolicy configuration: " + policy);
+        System.out.println("BucketPolicy configuration: " + minioClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("default").build()));
+
+        // 设置桶策略私有
+//        minioClient.setBucketPolicy(
+//                SetBucketPolicyArgs.builder().bucket("default")
+//                        .config(
+//                                "{\"Version\":\"2012-10-17\",\"Statement\":[]}"
+//                        )
+//                        .build());
+
+        // 设置桶公有
+//        String obj = "test";
+//        String sb = "{\"Version\":\"2012-10-17\"," +
+//                "\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":" +
+//                "{\"AWS\":[\"*\"]},\"Action\":[\"s3:ListBucket\",\"s3:ListBucketMultipartUploads\"," +
+//                "\"s3:GetBucketLocation\"],\"Resource\":[\"arn:aws:s3:::" + obj +
+//                "\"]},{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"*\"]},\"Action\":[\"s3:PutObject\",\"s3:AbortMultipartUpload\",\"s3:DeleteObject\",\"s3:GetObject\",\"s3:ListMultipartUploadParts\"],\"Resource\":[\"arn:aws:s3:::" +
+//                obj +
+//                "/*\"]}]}";
+//        minioClient.setBucketPolicy(
+//                SetBucketPolicyArgs.builder()
+//                        .bucket(obj)
+//                        .config(sb)
+//                        .build()
+//        );
+
+        // 获取桶中的对象锁配置, 不存在会抛异常ObjectLockConfigurationNotFoundError
+//        ObjectLockConfiguration objectLockConfiguration =
+//                minioClient.getObjectLockConfiguration(
+//                        GetObjectLockConfigurationArgs.builder().bucket("default").build());
+//        System.out.println("Mode: " + objectLockConfiguration.mode());
+//        System.out.println("Duration: " + objectLockConfiguration.duration().duration() + " " + objectLockConfiguration.duration().unit());
+
+
       }
 
       // 所有桶
-      List<Bucket> bucketList = minioClient.listBuckets();
-      for (Bucket bucket : bucketList) {
-        System.out.println(bucket.creationDate() + ", " + bucket.name());
-      }
+//      List<Bucket> bucketList = minioClient.listBuckets();
+//      for (Bucket bucket : bucketList) {
+//        System.out.println(bucket.creationDate() + ", " + bucket.name());
+//      }
 
       // 删除空桶
 //      minioClient.removeBucket(RemoveBucketArgs.builder().bucket("testdir").build());
@@ -95,12 +139,12 @@ public class FileUploader {
 //      }
 
       // Upload
-      minioClient.uploadObject(
-          UploadObjectArgs.builder()
-              .bucket("testdir")
-              .object("tesydocx-11-23.docx")
-              .filename("C:\\Users\\gzxzl\\Desktop\\tesy.docx")
-              .build());
+//      minioClient.uploadObject(
+//          UploadObjectArgs.builder()
+//              .bucket("testdir")
+//              .object("tesydocx-11-23.docx")
+//              .filename("C:\\Users\\gzxzl\\Desktop\\tesy.docx")
+//              .build());
 
       // 下载本地
 //      minioClient.downloadObject(
