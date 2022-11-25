@@ -28,7 +28,7 @@ public class Md5Test {
         return String.format("%032x", new BigInteger(1, r));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println(md5("testsssssssssssssssssss".getBytes()));
         System.out.println(DigestUtils.md5Hex("testsssssssssssssssssss"));
 
@@ -45,5 +45,17 @@ public class Md5Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // 大文件分批次加密
+        System.out.println(DigestUtils.md5Hex(new FileInputStream(new File("C:\\Users\\gzxzl\\Desktop\\大文件-测试.mp4"))));
+        FileInputStream f = new FileInputStream(new File("C:\\Users\\gzxzl\\Desktop\\大文件-测试.mp4"));
+        MessageDigest digest = MessageDigest.getInstance("md5");
+        byte[] buffer = new byte[8192];
+        int len;
+        while (-1 != (len = f.read(buffer))) {
+            digest.update(buffer, 0, len);
+        }
+        byte[] md5hash = digest.digest();
+        System.out.println(String.format("%032x", new BigInteger(1, md5hash)));
     }
 }

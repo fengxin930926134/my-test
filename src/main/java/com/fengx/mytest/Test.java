@@ -1,25 +1,20 @@
 package com.fengx.mytest;
 
-import com.google.common.collect.Lists;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Test {
     public static void main(String[] args) throws ParseException {
 //        test1();
+
+        List<Integer> collect = Stream.iterate(0, i -> ++i).limit(3).collect(Collectors.toList());
+        collect.forEach(System.out::println);
 
         String text = "大学名称   大学分类   招生省份   招生年份   考生类别   批次名称   最低分数线   最低位次\n" +
                 "贵州大学    综合    贵州    2021    文科    本一    592    4006\n" +

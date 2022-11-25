@@ -1,5 +1,6 @@
 package com.fengx.mytest.external.minio;
 
+import com.google.common.collect.Sets;
 import io.minio.*;
 import io.minio.errors.MinioException;
 import io.minio.messages.*;
@@ -7,7 +8,9 @@ import io.minio.messages.*;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -88,6 +91,11 @@ public class FileUploader {
 
       }
 
+      // 获取元信息
+      StatObjectResponse statObjectResponse = minioClient.statObject(
+              StatObjectArgs.builder().bucket("default").object("1ab2a515-577e-4168-93cd-0a3d11ae6907").build());
+      System.out.println(statObjectResponse);
+
       // 所有桶
 //      List<Bucket> bucketList = minioClient.listBuckets();
 //      for (Bucket bucket : bucketList) {
@@ -154,6 +162,26 @@ public class FileUploader {
 //                      .filename("test.png")
 //                      .build());
 
+      // 文件列表
+      Iterable<Result<Item>> results = minioClient.listObjects(
+              ListObjectsArgs.builder().bucket("temp-dir").prefix("707aa36b4e832446fc40e14170db4d35/").build());
+      Set<Integer> objectNames = Sets.newHashSet();
+      for (Result<Item> item:results) {
+        System.out.println(item.get().objectName());
+      }
+
+      // 组合文件
+      List<ComposeSource> sourceObjectList = new ArrayList<>();
+      sourceObjectList.add(
+              ComposeSource.builder().bucket("testdir").object("part1.rar").build());
+      sourceObjectList.add(
+              ComposeSource.builder().bucket("testdir").object("part2.rar").build());
+      minioClient.composeObject(
+              ComposeObjectArgs.builder()
+                      .bucket("testdir")
+                      .object("part.rar")
+                      .sources(sourceObjectList)
+                      .build());
 
     } catch (MinioException e) {
       System.out.println("Error occurred: " + e);
