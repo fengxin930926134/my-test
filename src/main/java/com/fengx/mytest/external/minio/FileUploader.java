@@ -171,17 +171,17 @@ public class FileUploader {
       }
 
       // 组合文件
-      List<ComposeSource> sourceObjectList = new ArrayList<>();
-      sourceObjectList.add(
-              ComposeSource.builder().bucket("testdir").object("part1.rar").build());
-      sourceObjectList.add(
-              ComposeSource.builder().bucket("testdir").object("part2.rar").build());
-      minioClient.composeObject(
-              ComposeObjectArgs.builder()
-                      .bucket("testdir")
-                      .object("part.rar")
-                      .sources(sourceObjectList)
-                      .build());
+//      List<ComposeSource> sourceObjectList = new ArrayList<>();
+//      sourceObjectList.add(
+//              ComposeSource.builder().bucket("testdir").object("part1.rar").build());
+//      sourceObjectList.add(
+//              ComposeSource.builder().bucket("testdir").object("part2.rar").build());
+//      minioClient.composeObject(
+//              ComposeObjectArgs.builder()
+//                      .bucket("testdir")
+//                      .object("part.rar")
+//                      .sources(sourceObjectList)
+//                      .build());
 
     } catch (MinioException e) {
       System.out.println("Error occurred: " + e);
