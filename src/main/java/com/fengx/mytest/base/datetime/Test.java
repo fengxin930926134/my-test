@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,12 +74,19 @@ public class Test {
 //        System.out.println(LocalDate.now().getDayOfWeek().getValue());
 
         // 日期格式转换
-        String date = "2月15日";
-        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
-        Date parse = format.parse(date);
-        System.out.println(parse.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        System.out.println(LocalDate.now().format(formatter));
+//        String date = "2月15日";
+//        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+//        Date parse = format.parse(date);
+//        System.out.println(parse.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        System.out.println(LocalDate.now().format(formatter));
+        // 当年最小时间
+//        System.out.println(LocalDate.now().with(TemporalAdjusters.firstDayOfYear()).atStartOfDay());
+
+
+        //时间戳转yyyy-MM-dd HH:mm:ss
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(format.format(new Date(1672799400000L)) + " " + format.format(new Date(1672799700000L)));
     }
 
     /**

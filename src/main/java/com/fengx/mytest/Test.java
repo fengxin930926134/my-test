@@ -13,8 +13,10 @@ public class Test {
     public static void main(String[] args) throws ParseException {
 //        test1();
 
-        List<Integer> collect = Stream.iterate(0, i -> ++i).limit(3).collect(Collectors.toList());
-        collect.forEach(System.out::println);
+//        List<Integer> collect = Stream.iterate(0, i -> ++i).limit(3).collect(Collectors.toList());
+//        collect.forEach(System.out::println);
+
+        System.out.println(15 / 20);
 
         String text = "大学名称   大学分类   招生省份   招生年份   考生类别   批次名称   最低分数线   最低位次\n" +
                 "贵州大学    综合    贵州    2021    文科    本一    592    4006\n" +
