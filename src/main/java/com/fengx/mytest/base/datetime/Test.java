@@ -13,9 +13,12 @@ import java.util.stream.Stream;
 
 public class Test {
     public static void main(String[] args) throws ParseException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(LocalDateTime.now().toString());
+        System.out.println(LocalDateTime.now().format(formatter));
 //        System.out.println("时间间隔");
 //        // 2021-04-12 10:00 ~ 11:40
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //        LocalDateTime parse = LocalDateTime.parse("2021-04-12 10:00:00", formatter);
 //        LocalDateTime parse2 = LocalDateTime.parse("2021-04-12 11:40:00", formatter);
 //        Duration between = Duration.between(parse, parse2);
