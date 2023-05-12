@@ -32,9 +32,13 @@ public class Test {
 //        LocalDateTime end = LocalDateTime.of(2021, 8,31,0, 0);
 //
 //
-//        // 当前周第一天
+//        // 周第一天
+//        LocalDate firstDay = localDate.with(DayOfWeek.MONDAY);
+//        // 周最后一天
+//        LocalDate lastDay = localDate.with(DayOfWeek.SUNDAY);
+//        // 当前周第一天时间
 //        System.out.println(LocalDateTime.now().with(DayOfWeek.MONDAY).toLocalDate().atStartOfDay());
-//        // 当前周最后一天
+//        // 当前周最后一天时间
 //        System.out.println(LocalDateTime.now().with(DayOfWeek.SUNDAY).with(LocalTime.MAX));
 //        // 上一周
 //        System.out.println(LocalDateTime.now().with(DayOfWeek.MONDAY).toLocalDate().atStartOfDay().minus(1, ChronoUnit.WEEKS));
