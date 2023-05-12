@@ -3,8 +3,12 @@ package com.fengx.mytest;
 import com.google.common.collect.Lists;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,8 +40,30 @@ public class Test {
 //        });
 //        System.out.println(list);
 
+        // 序号生成
+        int numberInt = 121111020;
 
+        List<String> sort = Lists.newArrayList("0", "N", "M", "Q");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMM");
+        String yM = LocalDate.now().format(formatter);
+        String number = Integer.toString(numberInt);
+        int at0 = Integer.parseInt(number.charAt(0) + "");
+        StringBuilder substring = new StringBuilder(number.substring(5));
+        if ("9999".equals(substring.toString())) {
+            at0 = at0 + 1;
+            substring = new StringBuilder("0000");
+        }
+        substring = new StringBuilder(Integer.parseInt(substring.toString()) + 1 + "");
+        while (substring.length() < 4) {
+            substring.insert(0, "0");
+        }
+        String a = sort.get(at0) + yM + substring.toString();
+        System.out.println(a);
+        System.out.println(Integer.parseInt(at0 + yM + substring.toString()));
     }
+
+
 
     /**
      * 秒2LocalTime
