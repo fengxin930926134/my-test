@@ -12,7 +12,7 @@ public class Test {
                 new Greens("土豆", 1, 1, -2),
                 new Greens("南瓜", -2, 1, 1),
                 new Greens("芦笋", 1, -2, 1),
-                new Greens("南瓜", 2, -4, 2));
+                new Greens("大蒜", 2, -4, 2));
 
         List<List<Greens>> matchingCombinations = removeDuplicates(findMatchingCombinations(greens));
 
