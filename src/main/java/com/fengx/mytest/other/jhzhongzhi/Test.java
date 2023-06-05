@@ -7,18 +7,38 @@ import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) {
-        List<Greens> greens = Lists.newArrayList(
+        List<Greens> all = Lists.newArrayList(
+                new Greens("芦笋", 1, -2, 1),
                 new Greens("胡萝卜", -2, 1, 1),
+                new Greens("玉米", 1, -2, 1),
+                new Greens("火龙果", 2, 2, -4),
+                new Greens("榴莲", 2, -4, 2),
+                new Greens("茄子", 1, 1, -2),
+                new Greens("大蒜", 2, -4, 2),
+                new Greens("洋葱", -4, 2, 2),
+                new Greens("辣椒", 2, 2, -4),
+                new Greens("石榴", -4, 2, 2),
                 new Greens("土豆", 1, 1, -2),
                 new Greens("南瓜", -2, 1, 1),
-                new Greens("芦笋", 1, -2, 1),
-                new Greens("大蒜", 2, -4, 2));
+                new Greens("番茄", -1, -1, 2),
+                new Greens("西瓜", 2, -1, -1));
+
+        // 冬
+//        List<Greens> greens = Lists.newArrayList(all.get(1), all.get(10), all.get(11), all.get(0), all.get(6));
+        // 秋
+//        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(12), all.get(1), all.get(2), all.get(5), all.get(10), all.get(8), all.get(11));
+        // 夏
+//        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12), all.get(8), all.get(2));
+        // 春
+        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12),
+                all.get(1), all.get(2), all.get(5), all.get(10), all.get(0), all.get(4));
 
         List<List<Greens>> matchingCombinations = removeDuplicates(findMatchingCombinations(greens));
 
         matchingCombinations.forEach(e -> {
             if (!e.isEmpty()) {
-                String collect = e.stream().map(Greens::getName).collect(Collectors.joining("、"));
+                String collect = e.stream().map(item -> item.getName() + "(" + item.getA()
+                        + "," + item.getB() + "," + item.getC() + ")").collect(Collectors.joining("、"));
                 System.out.println(collect);
             }
         });
