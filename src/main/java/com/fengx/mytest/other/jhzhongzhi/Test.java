@@ -16,7 +16,12 @@ public class Test {
 
         List<List<Greens>> matchingCombinations = removeDuplicates(findMatchingCombinations(greens));
 
-        matchingCombinations.forEach(System.out::println);
+        matchingCombinations.forEach(e -> {
+            if (!e.isEmpty()) {
+                String collect = e.stream().map(Greens::getName).collect(Collectors.joining("、"));
+                System.out.println(collect);
+            }
+        });
 
     }
 
