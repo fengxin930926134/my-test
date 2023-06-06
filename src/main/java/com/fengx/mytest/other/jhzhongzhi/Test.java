@@ -23,17 +23,17 @@ public class Test {
                 new Greens("番茄", -1, -1, 2),
                 new Greens("西瓜", 2, -1, -1));
 
-        // 冬
-//        List<Greens> greens = Lists.newArrayList(all.get(1), all.get(10), all.get(11), all.get(0), all.get(6));
+        // 冬 胡萝/土豆/南瓜/芦笋/大蒜
+        List<Greens> greens = Lists.newArrayList(all.get(1), all.get(10), all.get(11), all.get(0), all.get(6));
         // 秋 大蒜/洋葱/番茄/胡萝卜/玉米/茄子/土豆/辣椒/南瓜
 //        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(12), all.get(1), all.get(2), all.get(5), all.get(10), all.get(8), all.get(11));
         // 夏 大蒜/洋葱/火龙果/石榴/西瓜/番茄/辣椒/玉米
 //        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12), all.get(8), all.get(2));
         // 春 大蒜/洋葱/火龙果/石榴/西瓜/番茄/胡萝卜/玉米/茄子/土豆/芦笋/榴莲
-        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12),
-                all.get(1), all.get(2), all.get(5), all.get(10), all.get(0), all.get(4));
+//        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12),
+//                all.get(1), all.get(2), all.get(5), all.get(10), all.get(0), all.get(4));
 
-        List<List<Greens>> matchingCombinations = removeDuplicates(findMatchingCombinations(greens));
+        List<List<Greens>> matchingCombinations = removeDuplicates2(removeDuplicates(findMatchingCombinations(greens)));
 
         matchingCombinations.forEach(e -> {
             if (!e.isEmpty()) {
@@ -42,7 +42,55 @@ public class Test {
                 System.out.println(collect);
             }
         });
+    }
 
+    private static List<List<Greens>> removeDuplicates2(List<List<Greens>> result) {
+        // 基础款式
+        List<List<String>> list = result.stream().filter(e -> e.size() <= 4)
+                .filter(e -> !e.isEmpty()).map(e ->
+                e.stream().map(Greens::getName).collect(Collectors.toList())).collect(Collectors.toList());
+
+        List<List<Greens>> uniqueResult = new ArrayList<>();
+
+        for (List<Greens> combination : result) {
+            boolean add = true;
+            for (List<String> base : list) {
+                if (combination.size() > base.size()) {
+                    if (exist(combination, base)) {
+                        add = false;
+                    }
+                } else {
+                    break;
+                }
+            }
+            if (add) {
+                uniqueResult.add(combination);
+            }
+        }
+
+        return uniqueResult;
+    }
+
+    private static boolean exist(List<Greens> combination, List<String> base) {
+        if (base.isEmpty()) {
+            return true;
+        }
+        List<String> newList = Lists.newArrayList(base);
+        String remove = newList.remove(0);
+        int i = 0;
+        for (; i < combination.size(); i++) {
+            if (combination.get(i).getName().equals(remove)) {
+                break;
+            }
+        }
+        if (i >= combination.size()) {
+            return false;
+        }
+
+        ArrayList<Greens> greens = Lists.newArrayList(combination);
+        greens.remove(i);
+
+        return exist(greens, newList);
     }
 
     private static List<List<Greens>> removeDuplicates(List<List<Greens>> result) {
@@ -91,7 +139,7 @@ public class Test {
             Greens nextGreen = greens.get(i);
 
             // 匹配多个相同水果的逻辑
-            for (int j = 1; j <= 6; j++) {
+            for (int j = 1; j <= 4; j++) {
                 for (int k = 0; k < j; k++) {
                     currentCombination.add(nextGreen);
                 }
