@@ -24,11 +24,11 @@ public class Test {
                 new Greens("西瓜", 2, -1, -1));
 
         // 冬 胡萝/土豆/南瓜/芦笋/大蒜
-        List<Greens> greens = Lists.newArrayList(all.get(1), all.get(10), all.get(11), all.get(0), all.get(6));
+//        List<Greens> greens = Lists.newArrayList(all.get(1), all.get(10), all.get(11), all.get(0), all.get(6));
         // 秋 大蒜/洋葱/番茄/胡萝卜/玉米/茄子/土豆/辣椒/南瓜
 //        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(12), all.get(1), all.get(2), all.get(5), all.get(10), all.get(8), all.get(11));
         // 夏 大蒜/洋葱/火龙果/石榴/西瓜/番茄/辣椒/玉米
-//        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12), all.get(8), all.get(2));
+        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12), all.get(8), all.get(2));
         // 春 大蒜/洋葱/火龙果/石榴/西瓜/番茄/胡萝卜/玉米/茄子/土豆/芦笋/榴莲
 //        List<Greens> greens = Lists.newArrayList(all.get(6), all.get(7), all.get(3), all.get(9), all.get(13), all.get(12),
 //                all.get(1), all.get(2), all.get(5), all.get(10), all.get(0), all.get(4));
