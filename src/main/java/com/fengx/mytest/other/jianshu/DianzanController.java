@@ -39,7 +39,7 @@ public class DianzanController {
      */
     private static final String vDianZan = "_3oieia";
 
-    private static String Cookie = "_ga=GA1.2.538624253.1644386005; UM_distinctid=17edd0b33c068d-057a92641ba9bb-33544874-1fa400-17edd0b33c1a50; __yadk_uid=tvbZYGY5BLMbSxzU61kuvARpFzCllWhz; remember_user_token=W1sxOTYxOTM4OF0sIiQyYSQxMSRMODdtN1ZkZWp2TER0YjF1b0lYVC9PIiwiMTY1NjMxODAxNC41NDIxNTE3Il0%3D--0dd82536c18fc6f3e8b7fa2cef3613d807781aca; read_mode=day; default_font=font2; locale=zh-CN; _m7e_session_core=f3e3c8c976a2ef95a9d70165c41664b7; CNZZDATA1279807957=1690344059-1644375653-https%253A%252F%252Fwww.baidu.com%252F%7C1656314603; Hm_lvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1655462602,1655691646,1656034246,1656318016; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_utm_source%22%3A%22desktop%22%2C%22%24latest_utm_medium%22%3A%22timeline%22%2C%22%24latest_utm_campaign%22%3A%22maleskine%22%2C%22%24latest_utm_content%22%3A%22note%22%7D%2C%22%24device_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%7D; Hm_lpvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1656318021; _gid=GA1.2.334428319.1656318022";
+    private static String Cookie = "_ga=GA1.2.538624253.1644386005; _uab_collina=165821722143880014610286; __bid_n=1841726e13ad52b3154207; FEID=v10-71eb892033fe9c4475426e035ac5b989ff591eeb; __xaf_fpstarttimer__=1672799078452; __xaf_fptokentimer__=1672799078610; __xaf_thstime__=1672799078648; FPTOKEN=Ek8ciJi3YQN8pE80oIcwnLvrk2pmiPiYs+JJil7sJ7hTwgfMrdrNoqtRLLm3U3nR4tNQO4LyF+7aToHnk5LfYW1SuxKJByyiEtiaT5RPMoVHGmOolyPDZvX3cLPGG0ItsGq6IGv4F3+6R9ue400SUlhhW14TrmSW0hkYMTjRj8OzgiwDghWOiqtsdtlJN1TFWX2KoF4gYlLknwh1UALtlGTugteidscrqTvJx9vvweDXjANvRKL+bVVRvq3Hfvw6B38FQ9dzAdnBhzVKC+maP4czHqtfJCZDgampDOErS80SNu3N/3eVxJV1NL7Ci2vk4ec88NB3TLNXY/xfdD+XkI0yMTdYdnHBGjUfAF1uJFhZzlet2eITCo+Ic4K4fHc344LMv9V+RjQ+HNGbVBNHJw==|ewE9kZCRPQ8WwePabzLrWGcCGBQ3EDwL1/E+46YecjU=|10|6b5612c706e223482015c491cc3704bb; web_login_version=MTcxNTMxODk0OA%3D%3D--3fbf328e4c387254f9d05deab4658d87b4299627; _gid=GA1.2.2043017015.1715650582; remember_user_token=W1sxOTYxOTM4OF0sIiQyYSQxMSRMODdtN1ZkZWp2TER0YjF1b0lYVC9PIiwiMTcxNTgyMjI5NC4yNDc4MzY0Il0%3D--2563c3de28794702266e054ab82e6c7c64f0c7f4; read_mode=day; default_font=font2; locale=zh-CN; _m7e_session_core=3ee3677fa5432a2d4e39e62a7691e2a6; Hm_lvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1715735568,1715737990,1715742202,1715822297; _ga_Y1EKTCT110=GS1.2.1715822332.43.1.1715823123.0.0.0; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2219619388%22%2C%22first_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_utm_source%22%3A%22desktop%22%2C%22%24latest_utm_medium%22%3A%22index-users%22%2C%22%24latest_utm_campaign%22%3A%22maleskine%22%2C%22%24latest_utm_content%22%3A%22note%22%7D%2C%22%24device_id%22%3A%2217edd0b30c4efa-004957b4186591-33544874-2073600-17edd0b30c5358%22%7D; Hm_lpvt_0c0e9d9b1e7d617b3e6842e85b9fb068=1715823554";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -47,6 +47,7 @@ public class DianzanController {
     @PostMapping("/setCookie")
     public String setCookie(@RequestBody String cookie) {
         Cookie = cookie;
+        test();
         return "成功";
     }
 
@@ -54,7 +55,7 @@ public class DianzanController {
     @Scheduled(cron = "0 0 */6 * * ?")
     @GetMapping("/index")
     public void test() {
-        choujiang();
+//        choujiang();
         exit = false;
         log.info("开始点赞..." + LocalDateTime.now());
         List<String> ids = Lists.newArrayList();
@@ -250,6 +251,8 @@ public class DianzanController {
     }
 
     private <T> String http(HttpHeaders headers, String url, HttpMethod method, T body) {
+        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3883.400 QQBrowser/10.8.4582.400");
+        headers.set("Cookie", Cookie);
         HttpEntity<T> entity;
         if (body == null) {
             entity = new HttpEntity<>(headers);
