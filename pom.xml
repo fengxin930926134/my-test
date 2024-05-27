@@ -189,32 +189,32 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>2.4.9</version>
-                <configuration>
-                    <!--FIXME:如何避免打包后转化为https-->
-                    <inputSpec>http://localhost:8761/security-server/dietc/v2/api-docs</inputSpec>
-                    <language>java</language>
-                    <library>resttemplate</library>
-                    <groupId>com.example</groupId>
-                    <artifactId>service-one-swagger-api-client</artifactId>
-                    <modelPackage>${groupId}.service-one.client.model</modelPackage>
-                    <apiPackage>${groupId}.service-one.client.api</apiPackage>
-                    <invokerPackage>${groupId}.service-one.client.invoker</invokerPackage>
-                    <output>${project.basedir/api-client}</output>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-swagger-javaclient</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>io.swagger</groupId>-->
+<!--                <artifactId>swagger-codegen-maven-plugin</artifactId>-->
+<!--                <version>2.4.9</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;FIXME:如何避免打包后转化为https&ndash;&gt;-->
+<!--                    <inputSpec>http://localhost:8761/security-server/dietc/v2/api-docs</inputSpec>-->
+<!--                    <language>java</language>-->
+<!--                    <library>resttemplate</library>-->
+<!--                    <groupId>com.example</groupId>-->
+<!--                    <artifactId>service-one-swagger-api-client</artifactId>-->
+<!--                    <modelPackage>${groupId}.service-one.client.model</modelPackage>-->
+<!--                    <apiPackage>${groupId}.service-one.client.api</apiPackage>-->
+<!--                    <invokerPackage>${groupId}.service-one.client.invoker</invokerPackage>-->
+<!--                    <output>${project.basedir/api-client}</output>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>generate-swagger-javaclient</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
